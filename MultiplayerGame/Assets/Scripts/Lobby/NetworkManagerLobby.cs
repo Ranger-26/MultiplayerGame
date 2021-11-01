@@ -16,7 +16,7 @@ namespace Lobby
 
         public static event Action OnClientConnected;
         public static event Action OnClientDisconnected;
-
+        //
         public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
         public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
         
