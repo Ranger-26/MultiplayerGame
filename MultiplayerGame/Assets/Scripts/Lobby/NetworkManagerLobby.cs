@@ -10,7 +10,7 @@ namespace Lobby
     public class NetworkManagerLobby : NetworkManager
     {
         [SerializeField] private int minPlayers = 2;
-        [Scene] [SerializeField] private string menuScene = string.Empty;
+        private string menuScene = "Scene_Lobby";
 
         [Header("Room")] [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab;
 
@@ -33,7 +33,6 @@ namespace Lobby
         public override void OnClientConnect(NetworkConnection conn)
         {
             base.OnClientConnect(conn);
-
             OnClientConnected?.Invoke();
         }
 
@@ -54,6 +53,7 @@ namespace Lobby
 
             if (SceneManager.GetActiveScene().name != menuScene)
             {
+                Debug.Log($"{SceneManager.GetActiveScene().name} != {menuScene} ");
                 conn.Disconnect();
             }
         }
@@ -69,6 +69,10 @@ namespace Lobby
                 roomPlayerLobby.IsLeader = isLeader;
 
                 NetworkServer.AddPlayerForConnection(conn, roomPlayerLobby.gameObject);
+            }
+            else
+            {
+                Debug.Log($"{SceneManager.GetActiveScene().name} != {menuScene} ");
             }
         }
 
