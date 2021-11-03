@@ -16,7 +16,7 @@ namespace Lobby
 
         public static event Action OnClientConnected;
         public static event Action OnClientDisconnected;
-        //
+        
         public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
         public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
         
@@ -109,6 +109,31 @@ namespace Lobby
             return true;
         }
 
+        public void StartGame()
+        {
+            if (SceneManager.GetActiveScene().name == menuScene)
+            {
+                if (!IsReadyToStart()) { return; }
+
+                OnServerChangeScene("Scene_Game");
+            }
+        }
+
+        public override void OnServerSceneChanged(string sceneName)
+        {
+            if (SceneManager.GetActiveScene().name == menuScene)
+            {
+                foreach(NetworkRoomPlayerLobby player in RoomPlayers)
+                {
+                    var gameObject = Instantiate(playerPrefab);
+                    var conn = player.connectionToServer;
+                    NetworkServer.Destroy(conn.identity.gameObject);
+
+                    NetworkServer.ReplacePlayerForConnection(conn, gameObject.gameObject);
+                }
+                base.OnServerSceneChanged(sceneName);
+            }
+        }
         public override void OnStopServer()
         {
             RoomPlayers.Clear();
