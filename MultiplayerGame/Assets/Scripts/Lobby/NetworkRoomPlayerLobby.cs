@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Lobby
 {
-    public class NetworkRoomPlayerLobby : NetworkBehaviour
+    public class NetworkRoomPlayerLobby : NetworkRoomPlayer
     {
         [Header("UI")]
         [SerializeField] private GameObject lobbyUI = null;
@@ -17,17 +17,10 @@ namespace Lobby
         [SyncVar(hook = nameof(HandleDisplayNameChanged))]
         public string DisplayName = "Loading...";
         [SyncVar(hook = nameof(HandleReadyStatusChanged))]
-        public bool IsReady = false;
+        public bool IsReady;
 
-        private bool isLeader;
-        public bool IsLeader
-        {
-            set
-            {
-                isLeader = value;
-                startGameButton.gameObject.SetActive(value);
-            }
-        }
+
+        public bool IsLeader { get; set; } = false;
 
         private NetworkManagerLobby room;
         private NetworkManagerLobby Room
@@ -96,7 +89,7 @@ namespace Lobby
 
         public void HandleReadyToStart(bool readyToStart)
         {
-            if (!isLeader) { return; }
+            if (!IsLeader) { return; }
 
             startGameButton.interactable = readyToStart;
         }
@@ -120,8 +113,7 @@ namespace Lobby
         {
             if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
 
-            //Room.StartGame();
+            Room.StartGame();
         }
-
     }
 }

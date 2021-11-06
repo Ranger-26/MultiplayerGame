@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f14ef2c0d04c60a304419476b0dbd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 0}
+  networkManager: {fileID: 2149486561526215046, guid: aa595a505f823a34c81601f940133bb8, type: 3}
   landingPagePanel: {fileID: 7083987220435472504}
 --- !u!1 &3478502766788406762
 GameObject:

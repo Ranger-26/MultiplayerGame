@@ -14,7 +14,7 @@ namespace MainMenu
         {
             networkManager.StartHost();
             
-            landingPagePanel.SetActive(false);
+            //landingPagePanel.SetActive(false);
         }
     }
 }

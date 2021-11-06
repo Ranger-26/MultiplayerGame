@@ -600,7 +600,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7624772544942989005}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Lobby.NetworkRoomPlayerLobby, Assembly-CSharp
         m_MethodName: CmdStartGame
         m_Mode: 1
@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7624772544942989005}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Lobby.NetworkRoomPlayerLobby, Assembly-CSharp
         m_MethodName: CmdReadyUp
         m_Mode: 1
@@ -1374,7 +1374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7946147470514388942}
   - component: {fileID: 5963527922667507166}
-  - component: {fileID: 7624772544942989005}
+  - component: {fileID: 8885659884605316136}
   m_Layer: 0
   m_Name: RoomPlayer
   m_TagString: Untagged
@@ -1414,7 +1414,7 @@ MonoBehaviour:
   visible: 0
   m_AssetId: d8ac7c2904143f64f9cb64a055df46a7
   hasSpawned: 0
---- !u!114 &7624772544942989005
+--- !u!114 &8885659884605316136
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1428,18 +1428,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  lobbyUI: {fileID: 8235421986795258040}
+  showRoomGUI: 1
+  readyToBegin: 0
+  index: 0
+  lobbyUI: {fileID: 6787411994811801433}
   playerNameTexts:
   - {fileID: 5527673210753047943}
   - {fileID: 8499437312814340838}
   - {fileID: 8488731406351207754}
-  - {fileID: 7938883055459094863}
+  - {fileID: 536584698868277178}
   playerReadyTexts:
   - {fileID: 5646863797498269845}
   - {fileID: 1614287967396933859}
   - {fileID: 6638426412258412665}
   - {fileID: 536584698868277178}
-  startGameButton: {fileID: 2399096067623256828}
+  startGameButton: {fileID: 3832620584604185411}
   DisplayName: Loading...
   IsReady: 0
 --- !u!1 &8120268106413629077

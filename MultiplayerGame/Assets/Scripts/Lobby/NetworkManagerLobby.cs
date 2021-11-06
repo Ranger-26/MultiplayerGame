@@ -7,29 +7,13 @@ using UnityEngine.SceneManagement;
 
 namespace Lobby
 {
-    public class NetworkManagerLobby : NetworkManager
+    public class NetworkManagerLobby : NetworkRoomManager
     {
-        [SerializeField] private int minPlayers = 2;
-        private string menuScene = "Scene_Lobby";
-
-        [Header("Room")] [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab;
-
+        [SerializeField]private string menuScene = "Scene_Menu";
+        
         public static event Action OnClientConnected;
         public static event Action OnClientDisconnected;
-        
         public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
-        public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
-        
-        public override void OnStartClient()
-        {
-            var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
-
-            foreach (var prefab in spawnablePrefabs)
-            {
-                NetworkClient.RegisterPrefab(prefab);
-            }
-        }
-        
         public override void OnClientConnect(NetworkConnection conn)
         {
             base.OnClientConnect(conn);
@@ -48,34 +32,29 @@ namespace Lobby
             if (numPlayers >= maxConnections)
             {
                 conn.Disconnect();
-                return;
             }
-
+            
             if (SceneManager.GetActiveScene().name != menuScene)
             {
                 Debug.Log($"{SceneManager.GetActiveScene().name} != {menuScene} ");
                 conn.Disconnect();
             }
+            
         }
-
+        
+        
         public override void OnServerAddPlayer(NetworkConnection conn)
         {
-            if (SceneManager.GetActiveScene().name == menuScene)
-            {
-                bool isLeader = RoomPlayers.Count == 0;
+            bool isLeader = RoomPlayers.Count == 0;
 
-                NetworkRoomPlayerLobby roomPlayerLobby = Instantiate(roomPlayerPrefab);
+            NetworkRoomPlayerLobby roomPlayerLobby = (NetworkRoomPlayerLobby)Instantiate(roomPlayerPrefab);
+                
+            roomPlayerLobby.IsLeader = isLeader;
 
-                roomPlayerLobby.IsLeader = isLeader;
-
-                NetworkServer.AddPlayerForConnection(conn, roomPlayerLobby.gameObject);
-            }
-            else
-            {
-                Debug.Log($"{SceneManager.GetActiveScene().name} != {menuScene} ");
-            }
+            NetworkServer.AddPlayerForConnection(conn, roomPlayerLobby.gameObject);
         }
-
+        
+        
         public override void OnServerDisconnect(NetworkConnection conn)
         {
             if (conn.identity != null)
@@ -108,35 +87,15 @@ namespace Lobby
 
             return true;
         }
-
-        public void StartGame()
-        {
-            if (SceneManager.GetActiveScene().name == menuScene)
-            {
-                if (!IsReadyToStart()) { return; }
-
-                OnServerChangeScene("Scene_Game");
-            }
-        }
-
-        public override void OnServerSceneChanged(string sceneName)
-        {
-            if (SceneManager.GetActiveScene().name == menuScene)
-            {
-                foreach(NetworkRoomPlayerLobby player in RoomPlayers)
-                {
-                    var gameObject = Instantiate(playerPrefab);
-                    var conn = player.connectionToServer;
-                    NetworkServer.Destroy(conn.identity.gameObject);
-
-                    NetworkServer.ReplacePlayerForConnection(conn, gameObject.gameObject);
-                }
-                base.OnServerSceneChanged(sceneName);
-            }
-        }
+        
         public override void OnStopServer()
         {
             RoomPlayers.Clear();
+        }
+
+        public void StartGame()
+        {
+            ServerChangeScene(GameplayScene);
         }
     }
 }
