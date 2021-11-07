@@ -97,5 +97,7 @@ namespace Lobby
         {
             ServerChangeScene(GameplayScene);
         }
+        
+        
     }
 }

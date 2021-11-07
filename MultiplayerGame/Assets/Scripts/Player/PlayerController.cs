@@ -15,7 +15,6 @@ namespace Player
         private void Start()
         {
             _controller = gameObject.GetComponent<CharacterController>();
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Update()
@@ -26,10 +25,6 @@ namespace Player
 
         void CalculateMovement()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                Cursor.lockState = CursorLockMode.None;
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-                Cursor.lockState = CursorLockMode.Locked;
             _groundedPlayer = _controller.isGrounded;
             if (_groundedPlayer && _playerVelocity.y < 0)
             {
