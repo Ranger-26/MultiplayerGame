@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.GameLogic;
 using Mirror;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +15,45 @@ namespace Lobby
         
         public static event Action OnClientConnected;
         public static event Action OnClientDisconnected;
+
+        #region GameLogic
         public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
+
+        private List<NetworkGamePlayer> alivePlayers = new List<NetworkGamePlayer>();
+
+        private List<NetworkGamePlayer> deadPlayers = new List<NetworkGamePlayer>();
+
+        private List<NetworkGamePlayer> innocentPlayers = new List<NetworkGamePlayer>();
+
+        private List<NetworkGamePlayer> terroristPlayers = new List<NetworkGamePlayer>();
+
+        [Server]
+        public void AssignRoles()
+        {
+            if (alivePlayers.Count != RoomPlayers.Count)
+            {
+                Debug.LogError("Method AssignRoles() called with an unequal amount of lobby and gameplayers");
+                return;
+            }
+
+            Debug.Log("Method AssignRoles() invoked. ");
+            for (int i = 0; i < alivePlayers.Count; i++)
+            {
+                if (i == 0)
+                {
+                    alivePlayers[i].SetRole(Role.Terrorist);
+                }
+                else
+                {
+                    alivePlayers[i].SetRole(Role.Innocent);
+                }
+                alivePlayers[i].ShowRoleText();
+            }
+        }
+        
+        #endregion
+
+        #region LobbyLogic
         public override void OnClientConnect(NetworkConnection conn)
         {
             base.OnClientConnect(conn);
@@ -62,42 +102,16 @@ namespace Lobby
                 var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
 
                 RoomPlayers.Remove(player);
-
-                NotifyPlayersOfReadyState();
             }
 
             base.OnServerDisconnect(conn);
         }
 
-        public void NotifyPlayersOfReadyState()
-        {
-            foreach(var player in RoomPlayers)
-            {
-                player.HandleReadyToStart(IsReadyToStart());
-            }
-        }
-
-        private bool IsReadyToStart()
-        {
-            if (numPlayers < minPlayers) return false;
-            foreach (var player in RoomPlayers)
-            {
-                if (!player.IsReady) return false;
-            }
-
-            return true;
-        }
         
         public override void OnStopServer()
         {
             RoomPlayers.Clear();
         }
-
-        public void StartGame()
-        {
-            ServerChangeScene(GameplayScene);
-        }
-        
-        
     }
+    #endregion
 }

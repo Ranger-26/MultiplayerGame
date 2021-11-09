@@ -99,21 +99,5 @@ namespace Lobby
         {
             DisplayName = displayName;
         }
-
-        [Command]
-        public void CmdReadyUp()
-        {
-            IsReady = !IsReady;
-
-            Room.NotifyPlayersOfReadyState();
-        }
-
-        [Command]
-        public void CmdStartGame()
-        {
-            if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
-
-            Room.StartGame();
-        }
     }
 }
