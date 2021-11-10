@@ -27,6 +27,9 @@ namespace Lobby
 
         private List<NetworkGamePlayer> terroristPlayers = new List<NetworkGamePlayer>();
 
+        public static event Action<NetworkGamePlayer> OnDie;
+
+            
         [Server]
         public void AssignRoles()
         {
@@ -50,7 +53,40 @@ namespace Lobby
                 alivePlayers[i].ShowRoleText();
             }
         }
-        
+
+        public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
+        {
+            gamePlayer.GetComponent<NetworkGamePlayer>().name = UnityEngine.Random.Range(1, 100).ToString();
+            alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
+            alivePlayers.ForEach(x => Debug.Log($"A person has connected to the game: {x.name}"));
+            return true;
+        }
+
+        public override void OnServerChangeScene(string sceneName)
+        {
+            if (sceneName == RoomScene)
+            {
+                foreach (NetworkRoomPlayer roomPlayer in roomSlots)
+                {
+                    if (roomPlayer == null)
+                        continue;
+
+                    // find the game-player object for this connection, and destroy it
+                    NetworkIdentity identity = roomPlayer.GetComponent<NetworkIdentity>();
+
+                    if (NetworkServer.active)
+                    {
+                        // re-add the room object
+                        roomPlayer.GetComponent<NetworkRoomPlayer>().readyToBegin = false;
+                        NetworkServer.ReplacePlayerForConnection(identity.connectionToClient, roomPlayer.gameObject);
+                    }
+                }
+
+                allPlayersReady = false;
+            }
+
+            base.OnServerChangeScene(sceneName);
+        }
         #endregion
 
         #region LobbyLogic

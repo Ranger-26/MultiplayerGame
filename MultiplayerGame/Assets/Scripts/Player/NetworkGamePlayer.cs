@@ -16,7 +16,9 @@ namespace Player
 
         [SyncVar] private int _health;
 
-        [Server]
+        [SyncVar] public string Name;
+
+        [Command]
         public void SetRole(Role newRole) => curRole = newRole;
 
         public override void OnStartLocalPlayer()
