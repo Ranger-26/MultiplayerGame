@@ -1,5 +1,6 @@
 ﻿using MainMenu;
 using Mirror;
+using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

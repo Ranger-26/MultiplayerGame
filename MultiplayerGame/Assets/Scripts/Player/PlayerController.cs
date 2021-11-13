@@ -12,6 +12,7 @@ namespace Player
         private float _jumpHeight = 1.0f;
         private float _gravityValue = -30.81f;
 
+        
         private void Start()
         {
             _controller = gameObject.GetComponent<CharacterController>();
