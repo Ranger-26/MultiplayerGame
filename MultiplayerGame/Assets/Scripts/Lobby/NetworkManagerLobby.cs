@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.GameLogic;
+using Game;
 using Mirror;
 using Player;
 using UnityEngine;
@@ -77,6 +77,17 @@ namespace Lobby
         public override void OnStopServer()
         {
             RoomPlayers.Clear();
+        }
+
+        public override void OnServerChangeScene(string newSceneName)
+        {
+            base.OnServerChangeScene(newSceneName);
+        }
+
+        public override GameObject OnRoomServerCreateGamePlayer(NetworkConnection conn, GameObject roomPlayer)
+        { 
+            GameManager.Instance.AddPlayer();
+            return playerPrefab;
         }
     }
     #endregion

@@ -9,13 +9,13 @@ namespace Game
 {
     public class GameManager : NetworkBehaviour
     {
-        public SyncList<NetworkGamePlayer> alivePlayers = new SyncList<NetworkGamePlayer>();
+        public List<NetworkConnectionToClient> alivePlayers = new List<NetworkConnectionToClient>();
         
-        public SyncList<NetworkGamePlayer> deadPlayers = new SyncList<NetworkGamePlayer>();
+        public List<NetworkConnectionToClient> deadPlayers = new List<NetworkConnectionToClient>();
 
-        public SyncList<NetworkGamePlayer> innocentPlayers = new SyncList<NetworkGamePlayer>();
+        public List<NetworkConnectionToClient> innocentPlayers = new List<NetworkConnectionToClient>();
 
-        public SyncList<NetworkGamePlayer> terroristPlayers = new SyncList<NetworkGamePlayer>();
+        public List<NetworkConnectionToClient> terroristPlayers = new List<NetworkConnectionToClient>();
 
         public static GameManager Instance;
 
@@ -24,17 +24,12 @@ namespace Game
             Instance = this;
         }
 
-        public override void OnStartServer()
+        private void OnAlivePlayersUpdated(SyncList<NetworkConnection>.Operation op, int index, NetworkConnection oldItem, NetworkConnection newItem)
         {
-            alivePlayers.Callback += OnAlivePlayersUpdated;
-        }
-
-        private void OnAlivePlayersUpdated(SyncList<NetworkGamePlayer>.Operation op, int index, NetworkGamePlayer oldItem, NetworkGamePlayer newItem)
-        {
-            Debug.Log($"Player {newItem.name} has joined!");
+            Debug.Log($"Player {newItem.identity.GetComponent<NetworkGamePlayer>().Name} has joined!");
         }
 
         [Command]
-        public void AddPlayer(NetworkGamePlayer player) => alivePlayers.Add(player);
+        public void AddPlayer(NetworkConnectionToClient player = null) => alivePlayers.Add(player);
     }
 }

@@ -23,18 +23,6 @@ namespace Player
         [TargetRpc]
         public void SetRole(Role newRole) => curRole = newRole;
 
-        public override void OnStartLocalPlayer()
-        {
-            Camera.main.transform.SetParent(transform);
-            Camera.main.transform.localPosition = new Vector3(0, 0, 0);
-            GameManager.Instance.AddPlayer(this);
-            CmdSetName(Random.Range(0, 100).ToString());
-            foreach (var instanceAlivePlayer in GameManager.Instance.alivePlayers)
-            {
-                Debug.Log(instanceAlivePlayer.Name + "is in the game!");
-            }
-        }
-
         public void ShowRoleText()
         {
             _roleText.text = "You are a " + curRole;
