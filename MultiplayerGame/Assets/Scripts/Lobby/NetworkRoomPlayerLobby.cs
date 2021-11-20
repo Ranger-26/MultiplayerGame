@@ -19,8 +19,7 @@ namespace Lobby
         public string DisplayName = "Loading...";
         [SyncVar(hook = nameof(HandleReadyStatusChanged))]
         public bool IsReady;
-
-
+        
         public bool IsLeader { get; set; } = false;
 
         private NetworkManagerLobby room;

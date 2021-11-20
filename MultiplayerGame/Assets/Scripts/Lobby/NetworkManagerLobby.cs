@@ -12,14 +12,12 @@ namespace Lobby
     public class NetworkManagerLobby : NetworkRoomManager
     {
         [SerializeField]private string menuScene = "Scene_Menu";
-        
         public static event Action OnClientConnected;
         public static event Action OnClientDisconnected;
         public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
 
         public static event Action<NetworkGamePlayer> OnDie;
         
-        #region LobbyLogic
         public override void OnClientConnect(NetworkConnection conn)
         {
             base.OnClientConnect(conn);
@@ -73,22 +71,22 @@ namespace Lobby
             base.OnServerDisconnect(conn);
         }
 
-        
         public override void OnStopServer()
         {
             RoomPlayers.Clear();
         }
+        
+        //Game Logic
+        private bool _isGameRunning = false;
+        
+        private List<NetworkGamePlayer> _alivePlayers = new List<NetworkGamePlayer>();
+        
+        private List<NetworkGamePlayer> _deadPlayers = new List<NetworkGamePlayer>();
 
-        public override void OnServerChangeScene(string newSceneName)
-        {
-            base.OnServerChangeScene(newSceneName);
-        }
+        private List<NetworkGamePlayer> _innocentPlayers = new List<NetworkGamePlayer>();
 
-        public override GameObject OnRoomServerCreateGamePlayer(NetworkConnection conn, GameObject roomPlayer)
-        { 
-            GameManager.Instance.AddPlayer();
-            return playerPrefab;
-        }
+        private List<NetworkGamePlayer> _terroristPlayers = new List<NetworkGamePlayer>();
+        
+        
     }
-    #endregion
 }
