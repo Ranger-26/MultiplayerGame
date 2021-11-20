@@ -11,28 +11,36 @@ namespace Player
 {
     public class NetworkGamePlayer : NetworkBehaviour
     {
-        [SerializeField]
-        private Text _roleText;
-
-        [SyncVar] private Role curRole;
+        [SyncVar] public Role curRole;
 
         [SyncVar] private int _health;
 
-        [SyncVar] public string Name;
-        
-        [TargetRpc]
-        public void SetRole(Role newRole) => curRole = newRole;
+        [SyncVar(hook = nameof(OnTextChanged))] public string Name;
 
-        public void ShowRoleText()
+        public TextMesh nameText;
+
+        public Text roleText;
+        public override void OnStartLocalPlayer()
         {
-            _roleText.text = "You are a " + curRole;
-            _roleText.gameObject.SetActive(true);
+            CmdSetName(PlayerPrefs.GetString("PlayerName"));
+            base.OnStartLocalPlayer();
+        }
+
+        private void OnTextChanged(string _, string yes)
+        {
+            nameText.text = yes;
         }
 
         [Command]
-        public void CmdSetName(string name)
+        private void CmdSetName(string name)
         {
-            this.Name = name;
-        } 
+            Name = name;
+        }
+
+        [TargetRpc]
+        public void TargetFlashText()
+        {
+            roleText.gameObject.SetActive(true);
+        }
     }
 }

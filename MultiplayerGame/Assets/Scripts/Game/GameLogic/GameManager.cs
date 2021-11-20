@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using Player;
@@ -9,13 +10,13 @@ namespace Game
 {
     public class GameManager : NetworkBehaviour
     {
-        public List<NetworkConnectionToClient> alivePlayers = new List<NetworkConnectionToClient>();
+        public List<NetworkGamePlayer> alivePlayers = new List<NetworkGamePlayer>();
         
-        public List<NetworkConnectionToClient> deadPlayers = new List<NetworkConnectionToClient>();
+        public List<NetworkGamePlayer> deadPlayers = new List<NetworkGamePlayer>();
 
-        public List<NetworkConnectionToClient> innocentPlayers = new List<NetworkConnectionToClient>();
+        public List<NetworkGamePlayer> innocentPlayers = new List<NetworkGamePlayer>();
 
-        public List<NetworkConnectionToClient> terroristPlayers = new List<NetworkConnectionToClient>();
+        public List<NetworkGamePlayer> terroristPlayers = new List<NetworkGamePlayer>();
 
         public static GameManager Instance;
 
@@ -24,12 +25,24 @@ namespace Game
             Instance = this;
         }
 
-        private void OnAlivePlayersUpdated(SyncList<NetworkConnection>.Operation op, int index, NetworkConnection oldItem, NetworkConnection newItem)
+        private void Start()
         {
-            Debug.Log($"Player {newItem.identity.GetComponent<NetworkGamePlayer>().Name} has joined!");
+            
         }
 
-        [Command]
-        public void AddPlayer(NetworkConnectionToClient player = null) => alivePlayers.Add(player);
+       [Server]
+        public IEnumerator Test()
+        {
+            foreach (var player in alivePlayers)
+            {
+                yield return new WaitForSeconds(10);
+                player.TargetFlashText();
+            }
+        }
+
+        public void yes()
+        {
+            StartCoroutine(Test());
+        }
     }
 }

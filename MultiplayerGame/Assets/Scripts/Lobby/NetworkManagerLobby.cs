@@ -18,6 +18,7 @@ namespace Lobby
 
         public static event Action<NetworkGamePlayer> OnDie;
         
+        //lobby logic
         public override void OnClientConnect(NetworkConnection conn)
         {
             base.OnClientConnect(conn);
@@ -75,10 +76,23 @@ namespace Lobby
         {
             RoomPlayers.Clear();
         }
+        //end lobby logic
+        
+        //lobby to game logic
+        public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
+        {
+            //_alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
+            GameManager.Instance.alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
+            return true;
+        }
+        //end lobby to game logic
+        
+        
         
         //Game Logic
         private bool _isGameRunning = false;
         
+        [SerializeField]
         private List<NetworkGamePlayer> _alivePlayers = new List<NetworkGamePlayer>();
         
         private List<NetworkGamePlayer> _deadPlayers = new List<NetworkGamePlayer>();
