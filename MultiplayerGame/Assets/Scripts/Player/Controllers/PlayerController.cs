@@ -1,7 +1,7 @@
 using Mirror;
 using UnityEngine;
 
-namespace Player
+namespace Player.Controllers
 {
     public class PlayerController : NetworkBehaviour
     {
@@ -32,9 +32,9 @@ namespace Player
                 _playerVelocity.y = 0f;
             }
 
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Vector3 move = new Vector3(UnityEngine.Input.GetAxis("Horizontal"), 0, UnityEngine.Input.GetAxis("Vertical"));
             move = transform.transform.TransformDirection(move);
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
             {
                 _controller.Move(move * Time.deltaTime * _playerSpeed * 2);
             }
@@ -43,7 +43,7 @@ namespace Player
                 _controller.Move(move * Time.deltaTime * _playerSpeed);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && _groundedPlayer)
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Space) && _groundedPlayer)
             {
                 _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -3.0f * _gravityValue);
             }

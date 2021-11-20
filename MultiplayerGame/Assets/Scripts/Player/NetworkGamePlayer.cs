@@ -24,6 +24,8 @@ namespace Player
         {
             CmdSetName(PlayerPrefs.GetString("PlayerName"));
             base.OnStartLocalPlayer();
+            Camera.main.transform.SetParent(transform.GetChild(2));
+            Camera.main.transform.localPosition = new Vector3(0, 0, 0);
         }
 
         private void OnTextChanged(string _, string yes)
