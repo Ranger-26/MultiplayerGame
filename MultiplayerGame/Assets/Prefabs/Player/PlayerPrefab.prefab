@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  curRole: 0
+  curRole: 1
   Name: 
   nameText: {fileID: 3288160386504885678}
   roleText: {fileID: 8916651476248961985}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Game;
 using Lobby;
@@ -10,20 +11,22 @@ using Random = UnityEngine.Random;
 namespace Player
 {
     public class NetworkGamePlayer : NetworkBehaviour
-    {
+    {   
+        //[HideInInspector]
         [SyncVar] public Role curRole;
 
         [SyncVar] private int _health;
 
-        [SyncVar(hook = nameof(OnTextChanged))] public string Name;
+        [SyncVar(hook = nameof(OnTextChanged))]
+        public string Name;
 
         public TextMesh nameText;
 
         public Text roleText;
+
         public override void OnStartLocalPlayer()
         {
             CmdSetName(PlayerPrefs.GetString("PlayerName"));
-            base.OnStartLocalPlayer();
             Camera.main.transform.SetParent(transform.GetChild(2));
             Camera.main.transform.localPosition = new Vector3(0, 0, 0);
         }
@@ -39,9 +42,23 @@ namespace Player
             Name = name;
         }
 
-        [TargetRpc]
-        public void TargetFlashText()
+        [Command]
+        private void CmdSetRole(Role newRole)
         {
+            Debug.Log($"Server: Setting Role {newRole}");
+
+            curRole = newRole;
+        }
+
+        [TargetRpc]
+        public void SetRole(Role role)
+        {
+            if (!isServer)
+            {
+                Debug.Log($"Client: Setting Role {role}");
+            }
+            CmdSetRole(role);
+            roleText.text = $"You are a {curRole}";
             roleText.gameObject.SetActive(true);
         }
     }

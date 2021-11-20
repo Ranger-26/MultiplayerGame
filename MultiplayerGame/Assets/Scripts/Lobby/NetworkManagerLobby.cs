@@ -85,21 +85,18 @@ namespace Lobby
             GameManager.Instance.alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
             return true;
         }
+
+        public override void OnRoomServerSceneChanged(string sceneName)
+        {
+            Debug.Log(sceneName);
+            if (sceneName != GameplayScene) return;
+            GameManager.Instance.StartCoroutine(GameManager.Instance.AssignRoles());
+        }
         //end lobby to game logic
         
         
         
-        //Game Logic
-        private bool _isGameRunning = false;
         
-        [SerializeField]
-        private List<NetworkGamePlayer> _alivePlayers = new List<NetworkGamePlayer>();
-        
-        private List<NetworkGamePlayer> _deadPlayers = new List<NetworkGamePlayer>();
-
-        private List<NetworkGamePlayer> _innocentPlayers = new List<NetworkGamePlayer>();
-
-        private List<NetworkGamePlayer> _terroristPlayers = new List<NetworkGamePlayer>();
         
         
     }

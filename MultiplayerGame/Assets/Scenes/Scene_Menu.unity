@@ -186,6 +186,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 3680616506041721918, guid: ed1d221a9e2012d4486384c233edb85a, type: 3}
+      propertyPath: m_text
+      value: Trouble in Terrorist Town
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729178672645099730, guid: ed1d221a9e2012d4486384c233edb85a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -99
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed1d221a9e2012d4486384c233edb85a, type: 3}
 --- !u!1 &705507993

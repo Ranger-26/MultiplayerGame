@@ -20,6 +20,7 @@ namespace Game
 
         public static GameManager Instance;
 
+        public int numTraitors = 1;
         private void Awake()
         {
             Instance = this;
@@ -30,19 +31,26 @@ namespace Game
             
         }
 
-       [Server]
-        public IEnumerator Test()
+        [Server]
+        public IEnumerator AssignRoles()
         {
-            foreach (var player in alivePlayers)
+            yield return new WaitForSeconds(5);
+
+            for (int i = 0; i < alivePlayers.Count; i++)
             {
-                yield return new WaitForSeconds(10);
-                player.TargetFlashText();
+                if (i == 0)
+                {
+                    alivePlayers[i].SetRole(Role.Terrorist);
+                    terroristPlayers.Add(alivePlayers[i]);
+                }
+                else
+                {
+                    alivePlayers[i].SetRole(Role.Innocent);
+                    innocentPlayers.Add(alivePlayers[i]);
+                }
             }
         }
-
-        public void yes()
-        {
-            StartCoroutine(Test());
-        }
+        
+        
     }
 }
