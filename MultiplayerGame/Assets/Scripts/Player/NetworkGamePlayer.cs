@@ -12,8 +12,8 @@ namespace Player
 {
     public class NetworkGamePlayer : NetworkBehaviour
     {   
-        //[HideInInspector]
-        [SyncVar] public Role curRole;
+        [SerializeField]
+        [SyncVar] private Role curRole;
 
         [SyncVar] private int _health;
 
@@ -23,7 +23,6 @@ namespace Player
         public TextMesh nameText;
 
         public Text roleText;
-
         public override void OnStartLocalPlayer()
         {
             CmdSetName(PlayerPrefs.GetString("PlayerName"));
@@ -48,6 +47,7 @@ namespace Player
             Debug.Log($"Server: Setting Role {newRole}");
 
             curRole = newRole;
+            Debug.Log($"Server: New role is {newRole}");
         }
 
         [TargetRpc]
@@ -58,7 +58,7 @@ namespace Player
                 Debug.Log($"Client: Setting Role {role}");
             }
             CmdSetRole(role);
-            roleText.text = $"You are a {curRole}";
+            roleText.text = $"You are a {role}";
             roleText.gameObject.SetActive(true);
         }
     }

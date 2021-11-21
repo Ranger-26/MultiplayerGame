@@ -26,11 +26,6 @@ namespace Game
             Instance = this;
         }
 
-        private void Start()
-        {
-            
-        }
-
         [Server]
         public IEnumerator AssignRoles()
         {
@@ -50,7 +45,5 @@ namespace Game
                 }
             }
         }
-        
-        
     }
 }
