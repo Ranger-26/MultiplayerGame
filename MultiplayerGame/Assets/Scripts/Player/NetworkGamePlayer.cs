@@ -23,6 +23,8 @@ namespace Player
         public TextMesh nameText;
 
         public Text roleText;
+
+        public Text timer;
         public override void OnStartLocalPlayer()
         {
             CmdSetName(PlayerPrefs.GetString("PlayerName"));
