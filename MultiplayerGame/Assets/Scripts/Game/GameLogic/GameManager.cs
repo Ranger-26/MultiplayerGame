@@ -22,7 +22,6 @@ namespace Game
         
         public int numTraitors = 1;
 
-        [SyncVar(hook = nameof(OnTimeChanged))]
         public int timeUntilGameStarts = 10;
 
         public bool hasGameStarted;
@@ -47,21 +46,6 @@ namespace Game
                 {
                     alivePlayers[i].SetRole(Role.Innocent);
                     innocentPlayers.Add(alivePlayers[i]);
-                }
-            }
-        }
-
-        public void OnTimeChanged(int _, int neww)
-        {
-            foreach (var player in alivePlayers)
-            {
-                if (timeUntilGameStarts == 0)
-                {
-                    player.timer.gameObject.SetActive(false);
-                }
-                else
-                {
-                    player.timer.text = $"Time until game starts: {neww}";
                 }
             }
         }
