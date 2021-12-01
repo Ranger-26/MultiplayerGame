@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using Assets.Scripts.Player;
+using Mirror;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Assets.Scripts.Game.SpawnablePrefabs
     {
         public float movementSpeed = 5;
 
+        private int Damage = 25;
         // Use this for initialization
         void Start()
         {
@@ -24,6 +26,13 @@ namespace Assets.Scripts.Game.SpawnablePrefabs
         {
             Debug.Log("I hit something!");
 
+            if (collision.collider.TryGetComponent(out IDamageable target))
+            {
+
+                target.Damage(Damage);
+                Destroy(this.gameObject);
+                NetworkServer.Destroy(this.gameObject);
+            }
             //Destroy(this.gameObject);
             //NetworkServer.Destroy(this.gameObject);
         }

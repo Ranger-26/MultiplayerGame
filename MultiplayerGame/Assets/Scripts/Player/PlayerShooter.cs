@@ -14,6 +14,11 @@ namespace Assets.Scripts.Player
 
         [SerializeField]
         private bool _canShoot = true;
+
+        [SerializeField]
+        private AudioSource _audioSource;
+
+        public GameObject gun;
         // Use this for initialization
         void Start()
         {
@@ -42,11 +47,16 @@ namespace Assets.Scripts.Player
         [Command]
         private void CmdShoot() 
         {
-            Vector3 deansSuggestion = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
-            GameObject prefab = Instantiate(shootingPrefab, transform.position, Quaternion.identity);
+            GameObject prefab = Instantiate(shootingPrefab, gun.transform.position, Quaternion.identity);
             prefab.GetComponent<Rigidbody>().velocity = transform.forward * 5;
             NetworkServer.Spawn(prefab);
+            RpcShoot();
+        }
 
+        [ClientRpc]
+        private void RpcShoot()
+        {
+            _audioSource.Play();
         }
 
         IEnumerator CooldownRoutine()
