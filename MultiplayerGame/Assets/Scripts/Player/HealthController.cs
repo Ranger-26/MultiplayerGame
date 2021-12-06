@@ -28,6 +28,7 @@ namespace Assets.Scripts.Player
                 return;
             }
             GameManager.instance.ServerKillPlayer(GetComponent<NetworkGamePlayer>());
+            TargetKillPlayer();
         }
 
         [ClientRpc]
@@ -42,6 +43,13 @@ namespace Assets.Scripts.Player
             Debug.Log($"Getting damaged... new health is now {_curHealth}.");
         }
         
+        [TargetRpc]
+        public void TargetKillPlayer()
+        {
+            Debug.Log("You are dead!");
+        }
+
+        [TargetRpc]
         public void Damage(int damage) => CmdDamage(damage);
     }
 }
