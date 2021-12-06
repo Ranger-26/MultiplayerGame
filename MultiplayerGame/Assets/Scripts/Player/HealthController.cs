@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Game;
+using Game;
 using Mirror;
+using Player;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ namespace Assets.Scripts.Player
 {
     public class HealthController : NetworkBehaviour, IDamageable
     {
+        [SerializeField]
         [SyncVar]
         private int _curHealth = 100;
 
@@ -16,18 +19,29 @@ namespace Assets.Scripts.Player
         [Command]
         public void CmdDamage(int damage)
         {
-            _curHealth -= damage;
-            RpcDamagePlayer();
+            if (!GameManager.instance.hasGameStarted) return;
+            _curHealth = _curHealth - damage >= 0 ? _curHealth - damage : 0;
+            if (_curHealth > 0)
+            {
+                RpcDamagePlayer();
+                TargetDamagePlayer();
+                return;
+            }
+            GameManager.instance.ServerKillPlayer(GetComponent<NetworkGamePlayer>());
         }
 
         [ClientRpc]
         public void RpcDamagePlayer()
         {
-            Debug.Log($"Getting damaged... new health is now {_curHealth}.");
             _getShotClip?.Play();
         }
-        
 
+        [TargetRpc]
+        public void TargetDamagePlayer()
+        {
+            Debug.Log($"Getting damaged... new health is now {_curHealth}.");
+        }
+        
         public void Damage(int damage) => CmdDamage(damage);
     }
 }

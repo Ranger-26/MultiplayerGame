@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Player;
 using Game;
 using Lobby;
 using Mirror;
@@ -25,6 +26,14 @@ namespace Player
         public Text roleText;
 
         public Text timer;
+
+        public HealthController healthController;
+
+        private void Start()
+        {
+            healthController = GetComponent<HealthController>();
+        }
+
         public override void OnStartLocalPlayer()
         {
             CmdSetName(PlayerPrefs.GetString("PlayerName"));

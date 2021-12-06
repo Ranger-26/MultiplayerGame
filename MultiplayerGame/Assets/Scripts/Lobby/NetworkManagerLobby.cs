@@ -16,9 +16,8 @@ namespace Lobby
         public static event Action OnClientDisconnected;
         public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
 
-        public static event Action<NetworkGamePlayer> OnDie;
+        public GameObject deadPlayerPrefab;
         
-        //lobby logic
         public override void OnClientConnect(NetworkConnection conn)
         {
             base.OnClientConnect(conn);
@@ -82,7 +81,7 @@ namespace Lobby
         public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
         {
             //_alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
-            GameManager.Instance.alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
+            GameManager.instance.alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
             return true;
         }
 
@@ -90,7 +89,7 @@ namespace Lobby
         {
             Debug.Log(sceneName);
             if (sceneName != GameplayScene) return;
-            GameManager.Instance.StartCoroutine(GameManager.Instance.AssignRoles());
+            GameManager.instance.StartCoroutine(GameManager.instance.AssignRoles());
         }
         //end lobby to game logic
         

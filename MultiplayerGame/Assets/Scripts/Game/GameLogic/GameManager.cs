@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Lobby;
 using Mirror;
 using Player;
 using UnityEditor;
@@ -18,16 +19,17 @@ namespace Game
 
         public List<NetworkGamePlayer> terroristPlayers = new List<NetworkGamePlayer>();
 
-        public static GameManager Instance;
+        public static GameManager instance;
         
         public int numTraitors = 1;
 
         public int timeUntilGameStarts = 10;
 
+        [SyncVar]
         public bool hasGameStarted;
         private void Awake()
         {
-            Instance = this;
+            instance = this;
         }
 
         [Server]
@@ -48,6 +50,20 @@ namespace Game
                     innocentPlayers.Add(alivePlayers[i]);
                 }
             }
+
+            hasGameStarted = true;
+        }
+
+        [Server]
+        public void ServerKillPlayer(NetworkGamePlayer player)
+        {
+            alivePlayers.Remove(player);
+            deadPlayers.Add(player);
+
+            if (terroristPlayers.Contains(player)) terroristPlayers.Remove(player);
+            if (innocentPlayers.Contains(player)) innocentPlayers.Remove(player);
+            player.SetRole(Role.Dead);
+            player.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 }
