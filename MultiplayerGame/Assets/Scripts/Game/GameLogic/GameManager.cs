@@ -63,7 +63,21 @@ namespace Game
             if (terroristPlayers.Contains(player)) terroristPlayers.Remove(player);
             if (innocentPlayers.Contains(player)) innocentPlayers.Remove(player);
             player.SetRole(Role.Dead);
-            player.GetComponent<MeshRenderer>().enabled = false;
+            CheckPlayerLists();
+        }
+
+        [Server]
+        public void CheckPlayerLists()
+        {
+            if (terroristPlayers.Count == 0)
+            {
+                Debug.Log("Innocents win!");
+            }
+
+            if (innocentPlayers.Count == 0)
+            {
+                Debug.Log("Terroists win!");
+            }
         }
     }
 }

@@ -573,6 +573,7 @@ MonoBehaviour:
   roleText: {fileID: 8916651476248961985}
   timer: {fileID: 0}
   healthController: {fileID: 0}
+  PlayerModel: {fileID: 6125073138723419803}
 --- !u!114 &703460852041779956
 MonoBehaviour:
   m_ObjectHideFlags: 0

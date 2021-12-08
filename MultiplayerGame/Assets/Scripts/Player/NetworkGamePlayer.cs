@@ -29,6 +29,8 @@ namespace Player
 
         public HealthController healthController;
 
+        public GameObject PlayerModel;
+
         private void Start()
         {
             healthController = GetComponent<HealthController>();
