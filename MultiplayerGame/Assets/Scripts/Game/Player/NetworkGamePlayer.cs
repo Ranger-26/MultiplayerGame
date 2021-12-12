@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Player;
-using Game;
-using Lobby;
+﻿using Assets.Scripts.Player;
 using Mirror;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
-namespace Player
+namespace Game.Player
 {
     public class NetworkGamePlayer : NetworkBehaviour
     {   
@@ -21,11 +16,12 @@ namespace Player
         [SyncVar(hook = nameof(OnTextChanged))]
         public string Name;
 
+        [Header("Text")]
         public TextMesh nameText;
 
         public Text roleText;
 
-        public Text timer;
+        public Text gameOverText;
 
         public HealthController healthController;
 
@@ -57,10 +53,7 @@ namespace Player
         [Command]
         private void CmdSetRole(Role newRole)
         {
-            Debug.Log($"Server: Setting Role {newRole}");
-
             curRole = newRole;
-            Debug.Log($"Server: New role is {newRole}");
         }
 
         [TargetRpc]
@@ -74,5 +67,14 @@ namespace Player
             roleText.text = $"You are a {role}";
             roleText.gameObject.SetActive(true);
         }
+
+        [ClientRpc]
+        public void RpcShowGameOverScreen(string text)
+        {
+            gameOverText.text = text;
+            gameOverText.gameObject.SetActive(true);
+        }      
+        
+        
     }
 }

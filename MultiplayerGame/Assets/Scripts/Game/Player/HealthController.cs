@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Game;
 using Game;
+using Game.GameLogic;
+using Game.Player;
 using Mirror;
 using Player;
 using UnityEditor;
