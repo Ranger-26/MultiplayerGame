@@ -37,7 +37,7 @@ namespace Assets.Scripts.Player
 
         void Shoot()
         {
-            if (_canShoot)
+            if (_canShoot && hasAuthority)
             {
                 CmdShoot();
                 _canShoot = false;

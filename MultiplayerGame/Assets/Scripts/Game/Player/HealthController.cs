@@ -26,7 +26,7 @@ namespace Assets.Scripts.Player
             if (_curHealth > 0)
             {
                 RpcDamagePlayer();
-                TargetDamagePlayer();
+                TargetDamagePlayer(netIdentity.connectionToClient);
                 return;
             }
             GameManager.instance.ServerKillPlayer(GetComponent<NetworkGamePlayer>());
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Player
         }
 
         [TargetRpc]
-        public void TargetDamagePlayer()
+        public void TargetDamagePlayer(NetworkConnection conn)
         {
             Debug.Log($"Getting damaged... new health is now {_curHealth}.");
         }

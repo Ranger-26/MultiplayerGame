@@ -21,20 +21,19 @@ namespace Game.GameLogic
         public List<NetworkGamePlayer> terroristPlayers = new List<NetworkGamePlayer>();
 
         public static GameManager instance;
-        
-        public int numTraitors = 1;
 
         public int timeUntilGameStarts = 10;
 
         private NetworkManagerLobby _networkManagerLobby;
         
+        [SyncVar]
+        public bool hasGameStarted;
+
         private void Start()
         {
             _networkManagerLobby = (NetworkManagerLobby) NetworkManager.singleton;
         }
 
-        [SyncVar]
-        public bool hasGameStarted;
         private void Awake()
         {
             instance = this;
@@ -67,10 +66,10 @@ namespace Game.GameLogic
         {
             alivePlayers.Remove(player);
             deadPlayers.Add(player);
-
             if (terroristPlayers.Contains(player)) terroristPlayers.Remove(player);
             if (innocentPlayers.Contains(player)) innocentPlayers.Remove(player);
             player.SetRole(Role.Dead);
+            NetworkServer.ReplacePlayerForConnection(player.connectionToClient, _networkManagerLobby.deadPlayerPrefab);
             CheckPlayerLists();
         }
 
@@ -95,20 +94,17 @@ namespace Game.GameLogic
         [Server]
         private IEnumerator GameOverRoutine(Role winningTeam)
         {
-            string gameOverString;
-            if (winningTeam == Role.Terrorist)
-            {
-                gameOverString = "Terrorists Win!";
-            }
-            else
-            {
-                gameOverString = "Innocents Win!";
-            }
-
-            //alivePlayers[0].RpcShowGameOverScreen(gameOverString);
             yield return new WaitForSeconds(5);
-            //alivePlayers[0].RpcShowGameOverScreen("");
-            yield return new WaitForSeconds(2);
+            foreach (var networkGamePlayer in alivePlayers)
+            {
+                Destroy(networkGamePlayer);
+                NetworkServer.Destroy(networkGamePlayer.gameObject);
+            }
+            foreach (var networkGamePlayer in deadPlayers)
+            {
+                Destroy(networkGamePlayer);
+                NetworkServer.Destroy(networkGamePlayer.gameObject);
+            }
             alivePlayers.Clear();
             deadPlayers.Clear();
             innocentPlayers.Clear();

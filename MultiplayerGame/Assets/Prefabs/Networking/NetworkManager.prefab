@@ -71,6 +71,7 @@ MonoBehaviour:
   roomSlots: []
   clientIndex: 0
   menuScene: Scene_Lobby
+  deadPlayerPrefab: {fileID: 3798023877322234332, guid: 034c024d6adf25d48bc49287a3726755, type: 3}
 --- !u!114 &2149486561526215041
 MonoBehaviour:
   m_ObjectHideFlags: 0
