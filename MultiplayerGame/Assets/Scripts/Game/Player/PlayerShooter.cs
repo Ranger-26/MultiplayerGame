@@ -1,16 +1,15 @@
-﻿using Mirror;
-using System;
-using System.Collections;
+﻿using System.Collections;
+using Mirror;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Game.Player
 {
     public class PlayerShooter : NetworkBehaviour
     {
         [SerializeField]
         private GameObject shootingPrefab;
 
-        private int _cooldown = 1;
+        private int _cooldown = 5;
 
         [SerializeField]
         private bool _canShoot = true;
@@ -28,20 +27,20 @@ namespace Assets.Scripts.Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && _canShoot)
             {
                 Shoot();
-                StartCoroutine(CooldownRoutine());
             }
         }
 
         void Shoot()
         {
-            if (_canShoot && hasAuthority)
+            if (hasAuthority)
             {
                 CmdShoot();
                 _canShoot = false;
             }
+            StartCoroutine(CooldownRoutine());
         }
 
         [Command]
@@ -61,7 +60,7 @@ namespace Assets.Scripts.Player
 
         IEnumerator CooldownRoutine()
         {
-            yield return new WaitForSeconds(_cooldown);
+            yield return new WaitForSeconds(5);
             _canShoot = true;
         }
     }
