@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Player;
 using Lobby;
+using MainMenu;
 using Mirror;
 using Player;
 using UnityEngine;
@@ -25,6 +26,9 @@ namespace Game.GameLogic
         public int timeUntilGameStarts = 10;
 
         private NetworkManagerLobby _networkManagerLobby;
+
+        [SerializeField]
+        private GameObject ragdoll;
         
         [SyncVar]
         public bool hasGameStarted;
@@ -65,11 +69,17 @@ namespace Game.GameLogic
         public void ServerKillPlayer(NetworkGamePlayer player)
         {
             alivePlayers.Remove(player);
-            deadPlayers.Add(player);
             if (terroristPlayers.Contains(player)) terroristPlayers.Remove(player);
             if (innocentPlayers.Contains(player)) innocentPlayers.Remove(player);
             player.SetRole(Role.Dead);
-            NetworkServer.ReplacePlayerForConnection(player.connectionToClient, _networkManagerLobby.deadPlayerPrefab);
+            GameObject deadPlayer = Instantiate(_networkManagerLobby.deadPlayerPrefab,
+                player.gameObject.transform.position, Quaternion.identity);
+            NetworkServer.Spawn(deadPlayer);
+            NetworkServer.ReplacePlayerForConnection(player.connectionToClient, deadPlayer);
+            GameObject rag = Instantiate(ragdoll, player.transform.position, Quaternion.identity);
+            NetworkServer.Spawn(rag);
+            Destroy(player.gameObject);
+            NetworkServer.Destroy(player.gameObject);
             CheckPlayerLists();
         }
 
@@ -85,7 +95,7 @@ namespace Game.GameLogic
 
             if (innocentPlayers.Count == 0)
             {
-                Debug.Log("Terroists win!");
+                Debug.Log("Terrorists win!");
                 StartCoroutine(GameOverRoutine(Role.Terrorist));
                 //networkManagerLobby.ServerChangeScene(networkManagerLobby.RoomScene);
             }

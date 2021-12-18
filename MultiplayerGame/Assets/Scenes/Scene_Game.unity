@@ -159,8 +159,8 @@ MonoBehaviour:
   deadPlayers: []
   innocentPlayers: []
   terroristPlayers: []
-  numTraitors: 1
   timeUntilGameStarts: 10
+  ragdoll: {fileID: 2325720662727309472, guid: bb1d46167c732c9429d74cfebb4a2582, type: 3}
   hasGameStarted: 0
 --- !u!114 &31123810
 MonoBehaviour:

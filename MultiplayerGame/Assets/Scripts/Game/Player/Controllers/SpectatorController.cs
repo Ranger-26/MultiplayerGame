@@ -11,10 +11,17 @@ namespace Game.Player.Controllers
         private float _playerSpeed = 2.0f;
         private float _jumpHeight = 1.0f;
 
-
+        
         private void Start()
         {
             _controller = gameObject.GetComponent<CharacterController>();
+            _controller.detectCollisions = false;
+        }
+
+        public override void OnStartLocalPlayer()
+        {
+            Camera.main.transform.SetParent(transform.GetChild(0));
+            Camera.main.transform.localPosition = new Vector3(0, 0, 0);
         }
 
         private void Update()
@@ -25,12 +32,6 @@ namespace Game.Player.Controllers
 
         void CalculateMovement()
         {
-            _groundedPlayer = _controller.isGrounded;
-            if (_groundedPlayer && _playerVelocity.y < 0)
-            {
-                _playerVelocity.y = 0f;
-            }
-
             Vector3 move = new Vector3(UnityEngine.Input.GetAxis("Horizontal"), 0, UnityEngine.Input.GetAxis("Vertical"));
             move = transform.transform.TransformDirection(move);
             if (Input.GetKey(KeyCode.LeftShift))
