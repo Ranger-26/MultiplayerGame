@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace Game.World.ItemSystem
 {
-    public class ItemBase
+    public class ItemBase : ScriptableObject
     {
         
     }
