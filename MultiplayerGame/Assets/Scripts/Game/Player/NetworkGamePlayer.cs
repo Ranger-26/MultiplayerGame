@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Player;
+using Game.GameLogic;
 using Mirror;
 using Player;
 using UnityEngine;
@@ -23,13 +24,13 @@ namespace Game.Player
 
         public Text gameOverText;
 
-        public HealthController healthController;
+        public HealthHandler healthController;
 
         public GameObject PlayerModel;
 
         private void Start()
         {
-            healthController = GetComponent<HealthController>();
+            healthController = GetComponent<HealthHandler>();
         }
 
         public override void OnStartLocalPlayer()

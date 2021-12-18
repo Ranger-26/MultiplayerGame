@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class HealthController : NetworkBehaviour, IDamageable
+    public class HealthHandler : NetworkBehaviour, IDamageable
     {
         [SerializeField]
         [SyncVar]

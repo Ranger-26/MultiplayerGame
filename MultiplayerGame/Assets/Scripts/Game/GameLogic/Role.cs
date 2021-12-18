@@ -1,4 +1,4 @@
-﻿namespace Player
+﻿namespace Game.GameLogic
 {
     public enum Role : byte
     {
