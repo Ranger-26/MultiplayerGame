@@ -77,9 +77,8 @@ namespace Game.GameLogic
             NetworkServer.Spawn(deadPlayer);
             NetworkServer.ReplacePlayerForConnection(player.connectionToClient, deadPlayer);
             GameObject rag = Instantiate(ragdoll, player.transform.position, Quaternion.identity);
-            NetworkServer.Spawn(rag);
             Destroy(player.gameObject);
-            NetworkServer.Destroy(player.gameObject);
+            NetworkServer.Spawn(rag);
             CheckPlayerLists();
         }
 
@@ -108,12 +107,10 @@ namespace Game.GameLogic
             foreach (var networkGamePlayer in alivePlayers)
             {
                 Destroy(networkGamePlayer);
-                NetworkServer.Destroy(networkGamePlayer.gameObject);
             }
             foreach (var networkGamePlayer in deadPlayers)
             {
                 Destroy(networkGamePlayer);
-                NetworkServer.Destroy(networkGamePlayer.gameObject);
             }
             alivePlayers.Clear();
             deadPlayers.Clear();
