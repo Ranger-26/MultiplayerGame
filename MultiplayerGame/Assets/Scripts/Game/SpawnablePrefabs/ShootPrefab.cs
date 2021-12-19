@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Player;
-using Mirror;
+﻿using Mirror;
 using System.Collections;
 using UnityEngine;
 

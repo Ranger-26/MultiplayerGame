@@ -1,29 +1,25 @@
 ﻿using Assets.Scripts.Game;
-using Game;
 using Game.GameLogic;
-using Game.Player;
 using Mirror;
-using Player;
-using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Game.Player
 {
     public class HealthHandler : NetworkBehaviour, IDamageable
     {
         [SerializeField]
         [SyncVar]
-        private int _curHealth = 100;
+        public int curHealth = 100;
 
         [SerializeField]
-        private AudioSource _getShotClip;
+        private AudioSource getShotClip;
 
         [Command]
         public void CmdDamage(int damage)
         {
             if (!GameManager.instance.hasGameStarted) return;
-            _curHealth = _curHealth - damage >= 0 ? _curHealth - damage : 0;
-            if (_curHealth > 0)
+            curHealth = curHealth - damage >= 0 ? curHealth - damage : 0;
+            if (curHealth > 0)
             {
                 RpcDamagePlayer();
                 TargetDamagePlayer(netIdentity.connectionToClient);
@@ -35,13 +31,13 @@ namespace Assets.Scripts.Player
         [ClientRpc]
         public void RpcDamagePlayer()
         {
-            _getShotClip?.Play();
+            getShotClip?.Play();
         }
 
         [TargetRpc]
         public void TargetDamagePlayer(NetworkConnection conn)
         {
-            Debug.Log($"Getting damaged... new health is now {_curHealth}.");
+            Debug.Log($"Getting damaged... new health is now {curHealth}.");
         }
 
         [TargetRpc]

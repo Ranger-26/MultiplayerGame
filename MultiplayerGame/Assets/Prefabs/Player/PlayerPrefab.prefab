@@ -571,7 +571,7 @@ MonoBehaviour:
   Name: 
   nameText: {fileID: 3288160386504885678}
   roleText: {fileID: 8916651476248961985}
-  timer: {fileID: 0}
+  gameOverText: {fileID: 0}
   healthController: {fileID: 0}
   PlayerModel: {fileID: 6125073138723419803}
 --- !u!114 &703460852041779956
@@ -600,8 +600,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _curHealth: 100
-  _getShotClip: {fileID: 9130038455973137171}
+  curHealth: 100
+  getShotClip: {fileID: 9130038455973137171}
 --- !u!114 &2915600929995910669
 MonoBehaviour:
   m_ObjectHideFlags: 0

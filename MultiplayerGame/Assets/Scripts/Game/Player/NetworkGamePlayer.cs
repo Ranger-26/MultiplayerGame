@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Player;
-using Game.GameLogic;
+﻿using Game.GameLogic;
 using Mirror;
 using Player;
 using UnityEngine;
