@@ -73,8 +73,6 @@ namespace Game.Player
         {
             gameOverText.text = text;
             gameOverText.gameObject.SetActive(true);
-        }      
-        
-        
+        }
     }
 }
