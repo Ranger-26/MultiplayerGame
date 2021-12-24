@@ -62,7 +62,8 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 1557758043913904035, guid: ccaf2558e6101fd42863084d524c30f3, type: 3}
-  - {fileID: 0}
+  - {fileID: 2487317904946011300, guid: bfb48a2478d47594eb4f9cf9ba749012, type: 3}
+  - {fileID: 1641822357789159173, guid: 0e1812d95555d4d469944be8d35e9da4, type: 3}
   showRoomGUI: 1
   minPlayers: 1
   roomPlayerPrefab: {fileID: 8885659884605316136, guid: d8ac7c2904143f64f9cb64a055df46a7, type: 3}
@@ -72,7 +73,7 @@ MonoBehaviour:
   roomSlots: []
   clientIndex: 0
   menuScene: Scene_Lobby
-  deadPlayerPrefab: {fileID: 3798023877322234332, guid: 034c024d6adf25d48bc49287a3726755, type: 3}
+  deadPlayerPrefab: {fileID: 1557758043913904035, guid: ccaf2558e6101fd42863084d524c30f3, type: 3}
 --- !u!114 &2149486561526215041
 MonoBehaviour:
   m_ObjectHideFlags: 0
