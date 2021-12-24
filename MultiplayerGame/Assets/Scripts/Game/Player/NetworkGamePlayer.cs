@@ -26,11 +26,12 @@ namespace Game.Player
 
         public HealthHandler healthController;
 
-        public GameObject PlayerModel;
+        public Inventory.Inventory inventory;
 
         private void Start()
         {
             healthController = GetComponent<HealthHandler>();
+            inventory = GetComponent<Inventory.Inventory>();
         }
 
         public override void OnStartLocalPlayer()
