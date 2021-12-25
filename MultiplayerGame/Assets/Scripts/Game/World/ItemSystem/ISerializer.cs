@@ -6,6 +6,6 @@ namespace Game.World.ItemSystem
     {
         public void Write(NetworkWriter writer, ItemBase item);
         
-        public ItemBase Read(NetworkReader reader, string id);
+        public ItemBase Read(NetworkReader reader, ItemType id);
     }
 }
