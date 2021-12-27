@@ -7,9 +7,30 @@ namespace Game.Player.Inventory
 {
     public class Inventory : NetworkBehaviour
     {
-        private SyncDictionary<int, ItemBase> _inventory = new SyncDictionary<int, ItemBase>();
+        private SyncList<ItemBase> _inventory = new SyncList<ItemBase>();
         
         [SyncVar]
-        private ItemType _curHeldItem = ItemType.None;
+        private ItemBase _curHeldItem = null;
+
+        [Command]
+        public void CmdAddItem(ItemBase item)
+        {
+            _inventory.Add(item);
+            TargetAddItem(item);
+        }
+
+        [TargetRpc]
+        private void TargetAddItem(ItemBase item)
+        {
+            
+        }
+        private void Update()
+        {
+            if (_curHeldItem == null) return;
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                _curHeldItem.OnUse(GetComponent<NetworkGamePlayer>());
+            }
+        }
     }
 }

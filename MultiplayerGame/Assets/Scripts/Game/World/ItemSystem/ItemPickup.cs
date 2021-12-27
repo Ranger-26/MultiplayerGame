@@ -7,16 +7,10 @@ namespace Game.World.ItemSystem
     public class ItemPickup : NetworkBehaviour, IInteractable
     {
         [SerializeField]
-        private ItemType itemType;
+        private ItemBase itemBase;
         public void OnInteract(NetworkGamePlayer ply)
         {
-           
-        }
-
-        [Command]
-        private void CmdInteract(NetworkGamePlayer ply)
-        {
-            
+           ply.inventory.CmdAddItem(itemBase);
         }
     }
 }
