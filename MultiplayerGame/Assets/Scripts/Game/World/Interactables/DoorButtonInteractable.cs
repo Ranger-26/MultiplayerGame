@@ -16,7 +16,12 @@ namespace Game.World.Interactables
 
         public void Highlight()
         {
-            
+            GetComponent<Renderer>().material.SetColor("_Color",Color.yellow);
+        }
+
+        public void UnHighlight()
+        {
+            GetComponent<Renderer>().material.SetColor("_Color",Color.red);
         }
     }
 }

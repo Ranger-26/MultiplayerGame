@@ -9,6 +9,7 @@ namespace Game.Player.Controllers
 
         private NetworkGamePlayer _playerMain;
 
+        private IInteractable curInteractable;
         private void Start()
         {
             GetComponent<NetworkGamePlayer>();
@@ -16,21 +17,26 @@ namespace Game.Player.Controllers
 
         private void FixedUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo, interactionDistance))
             {
-                Debug.Log("Checking for interactable...");
-                Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
-                RaycastHit hitInfo;
-                if (Physics.Raycast(ray, out hitInfo, interactionDistance))
+                if (hitInfo.transform.TryGetComponent(out IInteractable interactable))
                 {
-                    Debug.Log("Hit something!");
-                    if (hitInfo.transform.TryGetComponent(out IInteractable interactable))
+                    curInteractable = interactable;
+                    curInteractable.Highlight();
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        Debug.Log("Interactable Found!");
-                        interactable.OnInteract(_playerMain);
+                        interactable.OnInteract(GetComponent<NetworkGamePlayer>());
                     }
                 }
+                else
+                {
+                    curInteractable?.UnHighlight();
+                    curInteractable = null;
+                }
             }
+            
         }
     }
 }

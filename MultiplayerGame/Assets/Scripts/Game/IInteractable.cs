@@ -7,5 +7,7 @@ namespace Game
         void OnInteract(NetworkGamePlayer player);
 
         void Highlight();
+
+        void UnHighlight();
     }
 }
