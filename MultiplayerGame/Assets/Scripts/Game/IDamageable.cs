@@ -1,7 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
-
-namespace Assets.Scripts.Game
+﻿namespace Game
 {
     public interface IDamageable
     {

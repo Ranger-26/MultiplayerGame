@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using System.Collections;
+using Game;
 using UnityEngine;
 
 namespace Assets.Scripts.Game.SpawnablePrefabs
