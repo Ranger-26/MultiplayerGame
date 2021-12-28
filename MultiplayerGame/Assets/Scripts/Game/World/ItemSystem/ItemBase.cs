@@ -4,20 +4,11 @@ using UnityEngine;
 
 namespace Game.World.ItemSystem
 {
-    public class ItemBase : ScriptableObject, ISerializer
+    public class ItemBase : ScriptableObject
     {
         public ItemType ItemType { get; set; }
-
-        public virtual void Write(NetworkWriter writer, ItemBase item)
-        {
-            
-        }
-
-        public virtual ItemBase Read(NetworkReader reader, ItemType id)
-        {
-            return CreateInstance<ItemBase>();
-        }
-
+        
+        public int Id { get; }
         public virtual bool OnPickup(NetworkGamePlayer ply)
         {
             return true;
