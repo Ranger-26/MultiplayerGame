@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Mirror;
 using UnityEngine;
 
@@ -6,30 +7,33 @@ namespace Game.World.ItemSystem
 {
     public static class ItemSerializer
     {
-        private static Dictionary<int, ItemBase> _spellsById = new Dictionary<int, ItemBase>();
-        private static Dictionary<ItemBase, int> _idsBySpell = new Dictionary<ItemBase, int>();
-        
+        private static Dictionary<int, ItemBase> _ItemBasesById = new Dictionary<int, ItemBase>();
+        private static Dictionary<ItemBase, int> _idsByItemBase = new Dictionary<ItemBase, int>();
+
+        // this attribute makes unity invoke the 
+        // method on game startup
         [RuntimeInitializeOnLoadMethod]
         public static void Initialize()
         {
-            // load all spells
-            ItemBase[] allSpells = Resources.LoadAll<ItemBase>("your file path");
+            // load all ItemBases
+            ItemBase[] allItemBases = Resources.LoadAll<ItemBase>("your file path");
 
-            foreach(ItemBase item in allSpells)
+            foreach(ItemBase ItemBase in allItemBases)
             {
-                _spellsById.Add(item.Id, item);
-                _idsBySpell.Add(item, item.Id);
+                _ItemBasesById.Add((int)ItemBase.Id, ItemBase);
+                _idsByItemBase.Add(ItemBase, (int)ItemBase.Id);
             }
         }
-        
-        public static void WriteSpell(this ItemBase item, NetworkWriter writer)
+
+
+        public static void WriteItemBase(this ItemBase ItemBase, NetworkWriter writer)
         {
-            writer.WriteInt(_idsBySpell[item]);
+            writer.WriteInt(_idsByItemBase[ItemBase]);
         }
-        
-        public static ItemBase ReadSpell(this NetworkReader reader)
+
+        public static ItemBase ReadItemBase(this NetworkReader reader)
         {
-            return _spellsById[reader.ReadInt()];
+            return _ItemBasesById[reader.ReadInt()];
         }
     }
 }

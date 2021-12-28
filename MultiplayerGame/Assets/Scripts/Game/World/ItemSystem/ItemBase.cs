@@ -6,9 +6,9 @@ namespace Game.World.ItemSystem
 {
     public class ItemBase : ScriptableObject
     {
-        public ItemType ItemType { get; set; }
-        
-        public int Id { get; }
+        public ItemType Id { get; }
+
+        public bool isReuseable;
         public virtual bool OnPickup(NetworkGamePlayer ply)
         {
             return true;
@@ -21,6 +21,10 @@ namespace Game.World.ItemSystem
 
         public virtual bool OnUse(NetworkGamePlayer ply)
         {
+            if (!isReuseable)
+            {
+                    
+            }
             return true;
         }
     }
