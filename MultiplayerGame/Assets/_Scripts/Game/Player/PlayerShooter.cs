@@ -9,7 +9,7 @@ namespace Game.Player
         [SerializeField]
         private GameObject shootingPrefab;
 
-        private int _cooldown = 5;
+        private int _cooldown = 1;
 
         [SerializeField]
         private bool _canShoot = true;
@@ -60,7 +60,7 @@ namespace Game.Player
 
         IEnumerator CooldownRoutine()
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(_cooldown);
             _canShoot = true;
         }
     }

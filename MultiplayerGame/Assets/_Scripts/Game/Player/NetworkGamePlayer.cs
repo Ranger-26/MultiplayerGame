@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Player;
-using Game.GameLogic;
+﻿using Game.GameLogic;
 using Mirror;
 using Player;
 using UnityEngine;
@@ -75,8 +74,6 @@ namespace Game.Player
         {
             gameOverText.text = text;
             gameOverText.gameObject.SetActive(true);
-        }      
-        
-        
+        }
     }
 }

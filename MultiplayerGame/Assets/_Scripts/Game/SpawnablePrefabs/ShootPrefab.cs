@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Player;
-using Mirror;
+﻿using Mirror;
 using System.Collections;
+using Game;
 using UnityEngine;
 
 namespace Assets.Scripts.Game.SpawnablePrefabs
