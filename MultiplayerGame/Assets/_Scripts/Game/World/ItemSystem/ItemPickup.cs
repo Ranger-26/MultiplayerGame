@@ -6,11 +6,11 @@ namespace Game.World.ItemSystem
 {
     public class ItemPickup : NetworkBehaviour, IInteractable
     {
-        [SerializeField]
-        private ItemBase itemBase;
+        public ItemBase item;
         public void OnInteract(NetworkGamePlayer ply)
         {
-           ply.inventory.CmdAddItem(itemBase);
+            ply.inventory.CmdAddItem(item);
+            Destroy(gameObject);
         }
     }
 }

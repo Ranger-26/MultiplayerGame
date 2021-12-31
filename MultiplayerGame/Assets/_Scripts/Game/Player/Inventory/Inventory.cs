@@ -22,7 +22,7 @@ namespace Game.Player.Inventory
         [TargetRpc]
         private void TargetAddItem(ItemBase item)
         {
-            
+            Debug.Log("Added item!");
         }
         private void Update()
         {
