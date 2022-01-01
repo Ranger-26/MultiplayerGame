@@ -1,8 +1,10 @@
+using Game.World;
+using Mirror;
 using UnityEngine;
 
 namespace Game.Player.Controllers
 {
-    public class PlayerInteractController : MonoBehaviour
+    public class PlayerInteractController : NetworkBehaviour
     {
         [SerializeField] 
         private float interactionDistance = 25;
@@ -15,8 +17,9 @@ namespace Game.Player.Controllers
             GetComponent<NetworkGamePlayer>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
+            if (!hasAuthority) return;
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo, interactionDistance))
@@ -24,7 +27,7 @@ namespace Game.Player.Controllers
                 if (hitInfo.transform.TryGetComponent(out IInteractable interactable))
                 {
                     curInteractable = interactable;
-                    curInteractable.Highlight();
+                    curInteractable?.Highlight();
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         interactable.OnInteract(GetComponent<NetworkGamePlayer>());

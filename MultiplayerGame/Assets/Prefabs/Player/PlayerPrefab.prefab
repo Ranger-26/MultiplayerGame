@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 688905791105887987}
   - component: {fileID: 2915600929995910669}
   - component: {fileID: 4097885914818609724}
+  - component: {fileID: 2370886480020504914}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -574,7 +575,7 @@ MonoBehaviour:
   roleText: {fileID: 8916651476248961985}
   gameOverText: {fileID: 0}
   healthController: {fileID: 0}
-  PlayerModel: {fileID: 6125073138723419803}
+  inventory: {fileID: 0}
 --- !u!114 &703460852041779956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +635,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionDistance: 25
+--- !u!114 &2370886480020504914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798023877322234332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90856cd72744d8fa8f2bc0a0c1c0824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &3955576591526974785
 GameObject:
   m_ObjectHideFlags: 0

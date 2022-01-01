@@ -21,12 +21,6 @@ namespace Game.World.Door
         [Command(requiresAuthority = false)]
         public void CmdChangeDoorState()
         {
-            if (animator.animator.IsInTransition(0))
-            {
-                Debug.Log("Returning out of animation");
-                return;
-            }
-            
             Debug.Log($"Calling CmdChangeDoorState....has a state of {curState}");
             if (curState == DoorState.Open)
             {
