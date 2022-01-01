@@ -6,14 +6,11 @@ using UnityEngine;
 
 namespace Game.World.ItemSystem
 {
-    /*
     public static class ItemBaseReadWrite
     {
         private static Dictionary<int, ItemBase> _itemsById = new Dictionary<int, ItemBase>();
         
         private static Dictionary<ItemBase, int> _idsByItem = new Dictionary<ItemBase, int>();
-
-        private const string itemsFolder = "ItemObjects";
         public static void WriteItemBase(this ItemBase item, NetworkWriter writer)
         {
             Debug.Log($"Writing item with id {_idsByItem[item]}");
@@ -26,7 +23,7 @@ namespace Game.World.ItemSystem
             return _itemsById[reader.ReadInt()];
         }
         
-        [RuntimeInitializeOnLoadMethod]
+        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         public static void Initialize()
         {
             foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
@@ -53,5 +50,4 @@ namespace Game.World.ItemSystem
             }
         }
     }
-    */
 }
