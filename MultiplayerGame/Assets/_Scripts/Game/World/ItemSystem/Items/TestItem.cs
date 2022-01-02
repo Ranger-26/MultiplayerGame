@@ -1,4 +1,5 @@
 using Game.Player;
+using Mirror;
 using UnityEngine;
 
 namespace Game.World.ItemSystem.Items
@@ -21,6 +22,20 @@ namespace Game.World.ItemSystem.Items
         {
             base.OnDequipt(ply);
             Debug.Log($"Player {ply.name} has dequpted the test item!");
+        }
+    }
+
+    public class TestItemSerializer : BaseSerializer
+    {
+        public override ItemType Id { get; } = ItemType.TestItem;
+        public override void Write(NetworkWriter writer, ItemBase item)
+        {
+            
+        }
+
+        public override ItemBase Read(NetworkReader reader, int id)
+        {
+            return ScriptableObject.CreateInstance<TestItem>();
         }
     }
 }

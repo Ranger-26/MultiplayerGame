@@ -12,6 +12,7 @@ namespace Game.World.ItemSystem
 
         public GameObject heldItem;
 
+        public BaseSerializer itemSerializer;
         public virtual void OnUse(NetworkGamePlayer ply)
         {
             
