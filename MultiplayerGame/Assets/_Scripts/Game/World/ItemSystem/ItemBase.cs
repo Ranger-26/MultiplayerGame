@@ -11,8 +11,7 @@ namespace Game.World.ItemSystem
         public bool isReusable;
 
         public GameObject heldItem;
-
-        public BaseSerializer itemSerializer;
+        
         public virtual void OnUse(NetworkGamePlayer ply)
         {
             
@@ -26,6 +25,14 @@ namespace Game.World.ItemSystem
         public virtual void OnDequipt(NetworkGamePlayer ply)
         {
             
+        }
+
+        public virtual ItemBase Clone()
+        {
+            return new ItemBase()
+            {
+                heldItem = Instantiate(heldItem)
+            };
         }
     }
 }

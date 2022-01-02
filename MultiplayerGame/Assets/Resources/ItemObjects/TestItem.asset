@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TestItem
   m_EditorClassIdentifier: 
   isReusable: 0
-  heldItem: {fileID: 0}
+  heldItem: {fileID: 6058493178628981025, guid: fd846087961fb4347bef5a381d7ef351, type: 3}

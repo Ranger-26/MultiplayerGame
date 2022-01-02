@@ -1,3 +1,4 @@
+using Game.GameLogic;
 using Game.Player;
 using Mirror;
 using UnityEngine;
@@ -23,6 +24,13 @@ namespace Game.World.ItemSystem.Items
             base.OnDequipt(ply);
             Debug.Log($"Player {ply.name} has dequpted the test item!");
         }
+
+        public override ItemBase Clone()
+        {
+            TestItem newItem = ScriptableObject.CreateInstance<TestItem>();
+            newItem.heldItem = this.heldItem;
+            return newItem;
+        }
     }
 
     public class TestItemSerializer : BaseSerializer
@@ -30,7 +38,10 @@ namespace Game.World.ItemSystem.Items
         public override ItemType Id { get; } = ItemType.TestItem;
         public override void Write(NetworkWriter writer, ItemBase item)
         {
-            
+            if (item.GetType() == typeof(TestItem))
+            {
+                TestItem itemTestItem = (TestItem)item;
+            }
         }
 
         public override ItemBase Read(NetworkReader reader, int id)

@@ -10,7 +10,7 @@ namespace Game.Player.Controllers
         private float interactionDistance = 25;
 
         private NetworkGamePlayer _playerMain;
-
+        
         private IInteractable curInteractable;
         private void Start()
         {

@@ -9,7 +9,7 @@ namespace Game.World.ItemSystem
         public ItemBase item;
         public void OnInteract(NetworkGamePlayer ply)
         {
-            ply.inventory.CmdAddItem(item);
+            ply.inventory.CmdAddItem(item.Clone());
             Destroy(gameObject);
         }
 
