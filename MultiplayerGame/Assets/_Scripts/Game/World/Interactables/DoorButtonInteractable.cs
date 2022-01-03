@@ -18,5 +18,10 @@ namespace Game.World.Interactables
         {
             
         }
+
+        public void UnHighlight()
+        {
+            
+        }
     }
 }
