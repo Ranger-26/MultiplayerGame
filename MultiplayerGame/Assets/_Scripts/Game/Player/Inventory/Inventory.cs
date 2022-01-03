@@ -11,6 +11,7 @@ namespace Game.Player.Inventory
         private SyncList<ItemBase> _inventory = new SyncList<ItemBase>();
         
         [SyncVar]
+        [SerializeField]
         private ItemBase _curHeldItem = null;
 
         private NetworkGamePlayer player;
