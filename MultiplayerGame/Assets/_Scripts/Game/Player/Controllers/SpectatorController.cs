@@ -6,12 +6,9 @@ namespace Game.Player.Controllers
     public class SpectatorController : NetworkBehaviour
     {
         private CharacterController _controller;
-        private Vector3 _playerVelocity;
-        private bool _groundedPlayer;
         private float _playerSpeed = 2.0f;
-        private float _jumpHeight = 1.0f;
 
-        
+
         private void Start()
         {
             _controller = gameObject.GetComponent<CharacterController>();
@@ -42,8 +39,6 @@ namespace Game.Player.Controllers
             {
                 _controller.Move(move * Time.deltaTime * _playerSpeed);
             }
-            
-            _controller.Move(_playerVelocity * Time.deltaTime);
         }
     }
 }

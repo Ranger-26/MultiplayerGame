@@ -23,10 +23,5 @@ namespace Game.World.Interactables
         {
             GetComponent<Renderer>().material.SetColor("_Color",Color.red);
         }
-
-        public void UnHighlight()
-        {
-            
-        }
     }
 }
