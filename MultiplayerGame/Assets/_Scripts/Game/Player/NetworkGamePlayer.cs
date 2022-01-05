@@ -24,13 +24,10 @@ namespace Game.Player
         public Text gameOverText;
 
         public HealthHandler healthController;
-
-        public Inventory.Inventory inventory;
-
+        
         private void Start()
         {
             healthController = GetComponent<HealthHandler>();
-            inventory = GetComponent<Inventory.Inventory>();
         }
 
         public override void OnStartLocalPlayer()
