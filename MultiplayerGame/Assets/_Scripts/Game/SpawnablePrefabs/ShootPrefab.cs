@@ -30,8 +30,7 @@ namespace Assets.Scripts.Game.SpawnablePrefabs
             {
 
                 target.Damage(Damage);
-                Destroy(this.gameObject);
-                NetworkServer.Destroy(this.gameObject);
+                Destroy(gameObject);
             }
             //Destroy(this.gameObject);
             //NetworkServer.Destroy(this.gameObject);

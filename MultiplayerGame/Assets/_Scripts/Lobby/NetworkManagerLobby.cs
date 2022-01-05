@@ -81,7 +81,6 @@ namespace Lobby
         #region Game
         public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
         {
-            //_alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
             GameManager.instance.alivePlayers.Add(gamePlayer.GetComponent<NetworkGamePlayer>());
             return true;
         }

@@ -19,12 +19,11 @@ namespace Game.Player
         [Header("Text")]
         public TextMesh nameText;
 
-        public Text roleText;
-
-        public Text gameOverText;
-
         public HealthHandler healthController;
-        
+
+        [SerializeField]
+        private UIManager _uiManager;
+
         private void Start()
         {
             healthController = GetComponent<HealthHandler>();
@@ -62,15 +61,13 @@ namespace Game.Player
                 Debug.Log($"Client: Setting Role {role}");
             }
             CmdSetRole(role);
-            roleText.text = $"You are a {role}";
-            roleText.gameObject.SetActive(true);
+            _uiManager.UpdateRoleText(role);
         }
 
         [ClientRpc]
         public void RpcShowGameOverScreen(string text)
         {
-            gameOverText.text = text;
-            gameOverText.gameObject.SetActive(true);
+            _uiManager.UpdateGameOverText(text);
         }
     }
 }

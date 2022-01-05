@@ -14,6 +14,9 @@ namespace Game.Player
         [SerializeField]
         private AudioSource getShotClip;
 
+        [SerializeField]
+        private UIManager _uIManager;
+
         [Command]
         public void CmdDamage(int damage)
         {
@@ -37,7 +40,7 @@ namespace Game.Player
         [TargetRpc]
         public void TargetDamagePlayer(NetworkConnection conn)
         {
-            Debug.Log($"Getting damaged... new health is now {curHealth}.");
+            _uIManager.UpdateHealth(curHealth);
         }
 
         [TargetRpc]
