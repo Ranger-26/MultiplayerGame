@@ -24,9 +24,7 @@ namespace Game.Player
         public Text gameOverText;
 
         public HealthHandler healthController;
-
-        public GameObject PlayerModel;
-
+        
         private void Start()
         {
             healthController = GetComponent<HealthHandler>();

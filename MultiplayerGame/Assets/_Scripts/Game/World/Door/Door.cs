@@ -21,12 +21,13 @@ namespace Game.World.Door
         [Command(requiresAuthority = false)]
         public void CmdChangeDoorState()
         {
-            if (animator.animator.IsInTransition(0))
+            /*
+            if (animator.animator.GetCurrentAnimatorStateInfo(0).normalizedTime != 0 && !animator.animator.GetCurrentAnimatorStateInfo(0).IsName("Base"))
             {
-                Debug.Log("Returning out of animation");
+                Debug.Log($"Returning out of animation..time is {animator.animator.GetCurrentAnimatorStateInfo(0).normalizedTime}");
                 return;
             }
-            
+            */
             Debug.Log($"Calling CmdChangeDoorState....has a state of {curState}");
             if (curState == DoorState.Open)
             {
