@@ -1,9 +1,7 @@
 ﻿using Mirror;
-using System.Collections;
-using Game;
 using UnityEngine;
 
-namespace Assets.Scripts.Game.SpawnablePrefabs
+namespace Game.SpawnablePrefabs
 {
     public class ShootPrefab : NetworkBehaviour
     {
@@ -22,6 +20,7 @@ namespace Assets.Scripts.Game.SpawnablePrefabs
             
         }
 
+        [Server]
         private void OnCollisionEnter(Collision collision)
         {
             Debug.Log("I hit something!");

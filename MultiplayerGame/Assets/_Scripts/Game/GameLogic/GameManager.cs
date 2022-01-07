@@ -112,6 +112,7 @@ namespace Game.GameLogic
             {
                 Destroy(networkGamePlayer);
             }
+            alivePlayers[0].RpcShowGameOverScreen($"{winningTeam} wins!");
             alivePlayers.Clear();
             deadPlayers.Clear();
             innocentPlayers.Clear();

@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Game;
-using Game.GameLogic;
+﻿using Game.GameLogic;
 using Mirror;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ namespace Game.Player
         private UIManager _uIManager;
 
         [Command]
-        public void CmdDamage(int damage)
+        private void CmdDamage(int damage)
         {
             if (!GameManager.instance.hasGameStarted) return;
             curHealth -= damage;
@@ -32,7 +31,7 @@ namespace Game.Player
         }
 
         [ClientRpc]
-        public void RpcDamagePlayer()
+        private void RpcDamagePlayer()
         {
             getShotClip?.Play();
         }
