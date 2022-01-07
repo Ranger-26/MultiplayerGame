@@ -17,6 +17,7 @@ namespace Game.Player
 
         public void UpdateHealth(int newHealth)
         {
+            _healthText.gameObject.SetActive(true);
             _healthText.text = $"Health: {newHealth}";
         }
 

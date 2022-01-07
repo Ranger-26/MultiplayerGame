@@ -34,6 +34,7 @@ namespace Game.Player
             CmdSetName(PlayerPrefs.GetString("PlayerName"));
             Camera.main.transform.SetParent(transform.GetChild(2));
             Camera.main.transform.localPosition = new Vector3(0, 0, 0);
+            _uiManager.UpdateHealth(100);
         }
 
         private void OnTextChanged(string _, string yes)

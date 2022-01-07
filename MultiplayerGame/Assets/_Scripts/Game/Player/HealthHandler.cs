@@ -21,11 +21,11 @@ namespace Game.Player
         public void CmdDamage(int damage)
         {
             if (!GameManager.instance.hasGameStarted) return;
-            curHealth = curHealth - damage >= 0 ? curHealth - damage : 0;
+            curHealth -= damage;
             if (curHealth > 0)
             {
                 RpcDamagePlayer();
-                TargetDamagePlayer(netIdentity.connectionToClient);
+                TargetDamagePlayer(netIdentity.connectionToClient, curHealth);
                 return;
             }
             GameManager.instance.ServerKillPlayer(GetComponent<NetworkGamePlayer>());
@@ -38,9 +38,9 @@ namespace Game.Player
         }
 
         [TargetRpc]
-        public void TargetDamagePlayer(NetworkConnection conn)
+        public void TargetDamagePlayer(NetworkConnection conn, int newHealth)
         {
-            _uIManager.UpdateHealth(curHealth);
+            _uIManager.UpdateHealth(newHealth);
         }
 
         [TargetRpc]
