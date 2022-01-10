@@ -20,14 +20,13 @@ namespace Game.SpawnablePrefabs
             
         }
 
-        [Server]
+        [ServerCallback]
         private void OnCollisionEnter(Collision collision)
         {
             Debug.Log("I hit something!");
 
             if (collision.collider.TryGetComponent(out IDamageable target))
             {
-
                 target.Damage(Damage);
                 Destroy(gameObject);
             }

@@ -72,6 +72,8 @@ namespace Game.GameLogic
             if (terroristPlayers.Contains(player)) terroristPlayers.Remove(player);
             if (innocentPlayers.Contains(player)) innocentPlayers.Remove(player);
             player.SetRole(Role.Dead);
+            player.healthController.TargetKillPlayer();
+            player.transform.Find("LookY")?.SetParent(null);
             GameObject deadPlayer = Instantiate(_networkManagerLobby.deadPlayerPrefab,
                 player.gameObject.transform.position, Quaternion.identity);
             NetworkServer.Spawn(deadPlayer);
@@ -104,6 +106,7 @@ namespace Game.GameLogic
         private IEnumerator GameOverRoutine(Role winningTeam)
         {
             yield return new WaitForSeconds(5);
+            /*
             foreach (var networkGamePlayer in alivePlayers)
             {
                 Destroy(networkGamePlayer);
@@ -118,6 +121,7 @@ namespace Game.GameLogic
             innocentPlayers.Clear();
             terroristPlayers.Clear();
             _networkManagerLobby.ServerChangeScene(_networkManagerLobby.RoomScene);
+            */
         }
     }
 }

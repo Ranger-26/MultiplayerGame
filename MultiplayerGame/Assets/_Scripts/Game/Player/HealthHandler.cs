@@ -16,8 +16,8 @@ namespace Game.Player
         [SerializeField]
         private UIManager _uIManager;
 
-        [Command]
-        private void CmdDamage(int damage)
+        [Server]
+        public void Damage(int damage)
         {
             if (!GameManager.instance.hasGameStarted) return;
             curHealth -= damage;
@@ -43,6 +43,10 @@ namespace Game.Player
         }
 
         [TargetRpc]
-        public void Damage(int damage) => CmdDamage(damage);
+        public void TargetKillPlayer()
+        {
+            Debug.Log("Ypou are dead now [TargetRpc]!");
+            Camera.main.transform.SetParent(null);
+        }
     }
 }
