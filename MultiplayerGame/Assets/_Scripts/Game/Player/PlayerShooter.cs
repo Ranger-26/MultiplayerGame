@@ -18,6 +18,12 @@ namespace Game.Player
         private AudioSource _audioSource;
 
         public GameObject gun;
+
+        [Header("Raycast Only")]
+        [SyncVar]
+        private int _gunRange = 5;
+        [SyncVar]
+        private int _damage = 25;
         // Use this for initialization
         void Start()
         {
@@ -50,6 +56,20 @@ namespace Game.Player
             prefab.GetComponent<Rigidbody>().velocity = transform.forward * 5;
             NetworkServer.Spawn(prefab);
             RpcShoot();
+        }
+
+        private void CmdShootRaycast(float width, float height)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(width / 2, height / 2, 0f));
+            RaycastHit hitInfo;
+            RpcShoot();
+            if (Physics.Raycast(ray, out hitInfo, _gunRange))
+            {
+                if (hitInfo.transform.TryGetComponent(out IDamageable interactable))
+                {
+                    interactable.Damage(_damage);
+                }
+            }
         }
 
         [ClientRpc]
