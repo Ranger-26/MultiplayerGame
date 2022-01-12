@@ -105,8 +105,8 @@ namespace Game.GameLogic
         [Server]
         private IEnumerator GameOverRoutine(Role winningTeam)
         {
+            alivePlayers[0].RpcShowGameOverScreen($"{winningTeam} wins!");
             yield return new WaitForSeconds(5);
-            /*
             foreach (var networkGamePlayer in alivePlayers)
             {
                 Destroy(networkGamePlayer);
@@ -121,7 +121,6 @@ namespace Game.GameLogic
             innocentPlayers.Clear();
             terroristPlayers.Clear();
             _networkManagerLobby.ServerChangeScene(_networkManagerLobby.RoomScene);
-            */
         }
     }
 }
