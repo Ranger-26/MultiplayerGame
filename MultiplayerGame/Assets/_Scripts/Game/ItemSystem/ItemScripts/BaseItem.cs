@@ -1,9 +1,9 @@
 ﻿using Game.Player;
-using UnityEditor;
 using UnityEngine;
 
-namespace Assets._Scripts.Game.ItemSystem.Items
+namespace Game.ItemSystem.ItemScripts
 {
+    [CreateAssetMenu(fileName = "BaseItem", menuName = "BaseItem/BaseItem")]
     public class BaseItem : ScriptableObject
     {
         public virtual ItemType Id { get; }

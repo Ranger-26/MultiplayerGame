@@ -1,8 +1,6 @@
 ﻿using Mirror;
-using UnityEditor;
-using UnityEngine;
 
-namespace Assets._Scripts.Game.ItemSystem.Items
+namespace Game.ItemSystem.ItemScripts
 {
     public abstract class BaseSerializer
     {

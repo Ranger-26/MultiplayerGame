@@ -1,10 +1,10 @@
-﻿using Mirror;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Mirror;
 using UnityEngine;
 
-namespace Assets._Scripts.Game.ItemSystem.Items
+namespace Game.ItemSystem.ItemScripts
 {
     public static class BaseItemReadWrite
     {
