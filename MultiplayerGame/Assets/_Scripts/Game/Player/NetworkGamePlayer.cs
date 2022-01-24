@@ -21,12 +21,15 @@ namespace Game.Player
 
         public HealthHandler healthController;
 
+        public Inventory inventory;
+
         [SerializeField]
         private UIManager _uiManager;
 
         private void Start()
         {
             healthController = GetComponent<HealthHandler>();
+            inventory = GetComponent<Inventory>();
         }
 
         public override void OnStartLocalPlayer()

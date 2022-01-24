@@ -21,7 +21,10 @@ namespace Game.ItemSystem.ItemScripts
         public override void OnStartServer()
         {
             BaseItem[] items = Resources.LoadAll<BaseItem>("ItemObjects");
-            Debug.Log($"Count: {items.Length}");
+            foreach(var item in items)
+            {
+                idToItems.Add((int)item.Id, item);
+            }
         }
     }
 }

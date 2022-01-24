@@ -10,7 +10,7 @@ namespace Game.ItemSystem.ItemScripts
 
         public virtual void OnUse(NetworkGamePlayer ply)
         {
-
+           
         }
 
         public virtual void OnEquipt(NetworkGamePlayer ply)

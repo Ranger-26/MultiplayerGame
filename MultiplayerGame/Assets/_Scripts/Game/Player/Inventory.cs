@@ -11,7 +11,10 @@ namespace Game.Player
         private ItemType curItem;
 
         private SyncList<ItemType> inventory = new SyncList<ItemType>();
-        
+
+        [SyncVar]
+        private int maxItems = 8;
+
         private NetworkGamePlayer player;
         // Use this for initialization
         void Start()
@@ -30,6 +33,13 @@ namespace Game.Player
         {
             BaseItem item = ItemDatabase.Instance.idToItems[(int)curItem];
             item.OnUse(player);
+        }
+
+        [Command]
+        public void CmdAddItem(ItemType item)
+        {
+            if (inventory.Count >= maxItems) return;
+            inventory.Add(item);
         }
     }
 }
