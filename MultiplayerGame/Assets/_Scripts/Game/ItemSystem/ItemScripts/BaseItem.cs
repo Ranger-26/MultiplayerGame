@@ -6,7 +6,7 @@ namespace Game.ItemSystem.ItemScripts
     [CreateAssetMenu(fileName = "BaseItem", menuName = "BaseItem/BaseItem")]
     public class BaseItem : ScriptableObject
     {
-        public virtual ItemType Id { get; }
+        public virtual ItemType Id { get; } = ItemType.None;
 
         public virtual void OnUse(NetworkGamePlayer ply)
         {

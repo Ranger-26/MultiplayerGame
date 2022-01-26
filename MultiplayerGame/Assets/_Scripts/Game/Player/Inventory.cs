@@ -1,7 +1,6 @@
 ﻿using Game.ItemSystem.ItemScripts;
 using Mirror;
 using UnityEngine;
-using ItemType = Assets._Scripts.Game.ItemSystem.ItemType;
 
 namespace Game.Player
 {
@@ -42,10 +41,11 @@ namespace Game.Player
         [Command]
         public void CmdAddItem(ItemType item)
         {
+            Debug.Log($"Trying to add item {item} for player {player.Name}! Inventory has {inventory.Count} items!");
             if (inventory.Count >= maxItems) return;
             inventory.Add(item);
             curItem = item;
-            Debug.Log($"Added item {item} for player {player.Name}!");
+            Debug.Log($"Added item {item} for player {player.Name}! Inventory has {inventory.Count} items!");
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Game.ItemSystem.ItemScripts
             BaseItem[] items = Resources.LoadAll<BaseItem>("ItemObjects");
             foreach(var item in items)
             {
+                Debug.Log($"Adding item with id {item.Id}");
                 idToItems.Add((int)item.Id, item);
             }
         }

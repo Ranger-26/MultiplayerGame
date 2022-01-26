@@ -2,6 +2,7 @@
 {
     public enum ItemType 
     {
-        None
+        None,
+        TestItem
     }
 }
