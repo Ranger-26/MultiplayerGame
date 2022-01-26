@@ -25,12 +25,16 @@ namespace Game.Player
         // Update is called once per frame
         void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                CmdUseHeldItem();
+            }
         }
 
         [Command]
         private void CmdUseHeldItem()
         {
+            Debug.Log($"Player {player.Name} using item {curItem}");
             BaseItem item = ItemDatabase.Instance.idToItems[(int)curItem];
             item.OnUse(player);
         }
@@ -40,6 +44,8 @@ namespace Game.Player
         {
             if (inventory.Count >= maxItems) return;
             inventory.Add(item);
+            curItem = item;
+            Debug.Log($"Added item {item} for player {player.Name}!");
         }
     }
 }
