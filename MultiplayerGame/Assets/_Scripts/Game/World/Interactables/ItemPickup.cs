@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
-using Mirror;
-using Game.World;
+﻿using Game.ItemSystem.ItemScripts;
 using Game.Player;
-using Assets._Scripts.Game.ItemSystem;
-using Game.ItemSystem.ItemScripts;
+using Mirror;
+using UnityEngine;
 
-namespace Assets._Scripts.Game.World.Interactables
+namespace Game.World.Interactables
 {
     public class ItemPickup : NetworkBehaviour, IInteractable
     {
@@ -20,7 +17,6 @@ namespace Assets._Scripts.Game.World.Interactables
 
         public void OnInteract(NetworkGamePlayer player)
         {
-            //player.inventory.CmdAddItem(item);
             if (player.GetComponent<Inventory>() == null || item == null) Debug.Log("Player inventory is null!");
             player.GetComponent<Inventory>().CmdAddItem(item);
         }

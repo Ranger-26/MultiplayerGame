@@ -14,7 +14,7 @@ namespace Game.Player.Controllers
         private IInteractable _curInteractable;
         private void Start()
         {
-            GetComponent<NetworkGamePlayer>();
+            _playerMain = GetComponent<NetworkGamePlayer>();
         }
 
         private void Update()
@@ -48,7 +48,6 @@ namespace Game.Player.Controllers
                         _curInteractable = null;
                     }
                 }
-                
             }
         }
     }
