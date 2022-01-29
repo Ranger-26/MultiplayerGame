@@ -6,7 +6,6 @@ namespace Game.Player
 {
     public class HealthHandler : NetworkBehaviour, IDamageable
     {
-        [SerializeField]
         [SyncVar]
         public int curHealth = 100;
 
@@ -30,6 +29,12 @@ namespace Game.Player
             GameManager.instance.ServerKillPlayer(GetComponent<NetworkGamePlayer>());
         }
 
+        [Server]
+        public void ServerHeal(int amount)
+        {
+            curHealth += amount;
+        }
+        
         [ClientRpc]
         private void RpcDamagePlayer()
         {
