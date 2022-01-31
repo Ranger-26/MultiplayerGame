@@ -17,7 +17,6 @@ namespace Game.World.Interactables
 
         public void OnInteract(NetworkGamePlayer player)
         {
-            if (player.GetComponent<Inventory>() == null || item == null) Debug.Log("Player inventory is null!");
             player.GetComponent<Inventory>().CmdAddItem(item);
         }
 
