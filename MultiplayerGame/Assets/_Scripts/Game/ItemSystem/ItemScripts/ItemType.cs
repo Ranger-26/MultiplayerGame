@@ -4,6 +4,7 @@
     {
         None,
         TestItem,
-        HealthItem
+        HealthItem,
+        Gun
     }
 }
